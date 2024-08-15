@@ -1,0 +1,48 @@
+ЗАДАНИЕ 1
+
+SELECT c.login, 
+       COUNT(*) 
+FROM "Couriers" AS c 
+INNER JOIN "Orders" AS o ON c.id = o."courierId" 
+WHERE o."inDelivery" = true
+GROUP BY c.login;
+
+________________________________________________
+
+scooter_rent=# SELECT c.login, COUNT(*) FROM "Couriers" AS c INNER JOIN "Orders" AS o ON c.id = o."courierId" WHERE o."inDelivery" = true GROUP BY c.login;
+ login | count
+-------+-------
+ lila  |     4
+ mira  |     2
+(2 rows)
+
+
+
+
+ЗАДАНИЕ 2
+
+SELECT track, 
+       CASE 
+           WHEN finished = true THEN '2' 
+           WHEN cancelled = true THEN '-1' 
+           WHEN "inDelivery" = true THEN '1' 
+           ELSE '0' 
+       END AS order_status 
+FROM "Orders";
+
+________________________________________________
+
+scooter_rent=# SELECT track, CASE WHEN finished = true THEN '2' WHEN cancelled = true THEN '-1' WHEN "inDelivery" = true THEN '1' ELSE '0' END AS order_status FROM "Orders";
+ track  | order_status
+--------+--------------
+ 815572 | 1
+ 815572 | 1
+ 620736 | 1
+ 620736 | 1
+  13910 | 0
+ 331958 | 1
+ 331958 | 1
+ 395159 | 0
+ 791611 | 0
+(9 rows)
+
